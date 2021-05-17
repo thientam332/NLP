@@ -1,10 +1,15 @@
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 
+def pad_sequences():
+    pass
+
 class Tokenizer():
     def __init__(self):
         pass
     def fit_on_texts(data):
+        pass
+    def texts_to_sequences():
         pass
 
 class TextToTensor():

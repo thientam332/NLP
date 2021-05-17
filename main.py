@@ -66,7 +66,6 @@ X_Train, X_Test, Y_Train, Y_Test = train_test_split(corpus, Y, test_size=0.20, r
 # Embeddings
 # ====================================================================================
 # -------------------------------------Đã_add-----------------------------------------
-#=====================================================================================
 class Embeddings():
     """
     Lớp đọc file word embedding và tạo ma trận dựa trên file đó
@@ -131,7 +130,7 @@ embedding_matrix = embedding.create_embedding_matrix(tokenizer, len(tokenizer.wo
 max_len = np.max([len(text.split()) for text in X_Train])
 TextToTensor_instance = TextToTensor(tokenizer=tokenizer, max_len=max_len)
 X_Train = TextToTensor_instance.string_to_tensor(X_Train)
-
+#=====================================================================================
 # Tạo node Mạng bằng Sequential
 model = Sequential()
 embedding_layer = Embedding(embedding_matrix.shape[0], 300, weights=[embedding_matrix], input_length=max_len , trainable=False)

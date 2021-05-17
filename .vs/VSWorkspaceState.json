@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\data",
-    "\\tien xu ly"
+    "\\dataset",
+    "\\evaluate",
+    "\\models"
   ],
-  "SelectedNode": "\\data\\IMDB_Dataset.csv",
+  "SelectedNode": "\\dataset\\generating_input.py",
   "PreviewInSolutionExplorer": false
 }
