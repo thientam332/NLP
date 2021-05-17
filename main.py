@@ -64,6 +64,9 @@ Y = label.transform(dataset.iloc[:,1])
 # Chia dataset thành train test data
 X_Train, X_Test, Y_Train, Y_Test = train_test_split(corpus, Y, test_size=0.20, random_state=40)
 # Embeddings
+# ====================================================================================
+# -------------------------------------Đã_add-----------------------------------------
+#=====================================================================================
 class Embeddings():
     """
     Lớp đọc file word embedding và tạo ma trận dựa trên file đó
