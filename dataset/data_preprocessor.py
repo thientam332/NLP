@@ -12,11 +12,7 @@ import re
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 
-
-stop_words = []
-stop_words = pd.read_csv('..//data//stop_words.txt', sep='\n', header=None)[0].tolist()
-
-def clean_text(string: str, punctuations=r'''!()-[]{};:'"\,<>./?@#$%^&*_~''',stop_words=stop_words) -> str:
+def clean_text(string: str, punctuations=r'''!()-[]{};:'"\,<>./?@#$%^&*_~''',stop_words=None) -> str:
     """
     Làm sạch dữ liệu  
     """
@@ -40,24 +36,34 @@ def clean_text(string: str, punctuations=r'''!()-[]{};:'"\,<>./?@#$%^&*_~''',sto
     string = re.sub(r'\s+', ' ', str(string)).strip()
 
     return string
-def Preprocessor(url ="..//data//train_test_data//IMDB_Dataset.csv"):
+
+class DuLieu():
+    def __init__(self,url="..//data//train_test_data//IMDB_Dataset.csv",url_stop='..//data//train_test_data//stop_words.txt'):
+        self.dataset=pd.read_csv(url)
+        self.stop_words = pd.read_csv(url_stop, sep='\n', header=None)[0].tolist()
+        self.X=[]
+        self.Y=None 
         
-    # Read Data
-    dataset = pd.read_csv(url)
-    dataset.isnull().values.any()
-    # Trực quan hóa tập dữ liệu theo Label
-    import seaborn as sns
-    sns.countplot(x='sentiment', data=dataset)
+        
+    def clean_data(self):
+        corpus = []
+        for review in self.dataset.values[:, 0]:
+            review = clean_text(review,r'''!()-[]{};:'"\,<>./?@#$%^&*_~''',self.stop_words)
+            corpus.append(review)
+            self.X=corpus
 
-    corpus = []
-    for review in dataset.values[:, 0]:
-        review = clean_text(review)
-        corpus.append(review)
-    # One hot Encoder Label
-    # One hot Encoder Label
-    label = LabelEncoder()
-    Y = label.fit_transform(dataset.iloc[:,1])
-    X_Train, X_Test, Y_Train, Y_Test = train_test_split(corpus, Y, test_size=0.20, random_state=40)
-    return  X_Train, X_Test, Y_Train, Y_Test 
+    def One_hot_Encoder(self):
+        label = LabelEncoder()
+        self.Y = label.fit_transform(self.dataset.iloc[:,1])
+    
+    def Split_Train_Test(self):
+        return train_test_split(self.X, self.Y, test_size=0.20, random_state=40)
+        
+    def DATA_PROPROCESSOR_SPLIT(self):
+        self.clean_data()
+        self.One_hot_Encoder()
+        return self.Split_Train_Test()
+    
 
-A=Preprocessor()
+                   
+
