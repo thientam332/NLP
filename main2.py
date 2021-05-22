@@ -38,3 +38,20 @@ model.add(rnn.LSTM(128))
 model.add(token.Dense(1, activation='sigmoid'))
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
 review_movie_model=model.fit(X_Train, Y_Train, batch_size=256, epochs=1,validation_split=0.2)
+
+import models.save_model.save_and_load as save_load
+temp3=save_load.Save_Load(model)
+temp3.save_model("C:/Users/Admin/Documents/GitHub/NLP/models/save_model")
+
+vietem=temp3.load_model("C:/Users/Admin/Documents/GitHub/NLP/models/save_model")
+
+import evaluate.classification_evaluate as test
+review_movie_model_pre=test.Test(model,X_Test,Y_Test,tokenizer)
+print(review_movie_model_pre.predict_testdata())
+
+import visual.visual as visual
+visualize=visual.Visualize(A.dataset,A.X,review_movie_model)
+visualize.VisualizeData()
+visualize.VisualizePredictModel()
+visualize.VisualizePredictModel2()
+
