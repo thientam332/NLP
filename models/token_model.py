@@ -21,5 +21,22 @@ class Dense(tf.keras.layers.Dense,Layer):
         bias_constraint=None,
         **kwargs
         )
+    """
+
+      Parameters
+      ----------
+      units : integer
+          số lượng đầu ra.
+      activation : method
+          Hàm kích hoạt . The default is None.
+      **kwargs : order
+          None.
+
+      Returns
+      -------
+      None.
+
+      """
+    
     self.units = int(units) if not isinstance(units, int) else units
     self.activation = activations.get(activation)
