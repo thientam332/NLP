@@ -38,7 +38,25 @@ def clean_text(string: str, punctuations=r'''!()-[]{};:'"\,<>./?@#$%^&*_~''',sto
     return string
 
 class DuLieu():
+    def __doc__(self):
+        return """
+    Tiền xử lý dữ liệu , chia file train và test 
+    """
     def __init__(self,url="..//data//train_test_data//IMDB_Dataset.csv",url_stop='..//data//train_test_data//stop_words.txt'):
+        """
+    
+        Parameters
+        ----------
+        url : Địa chỉ csv
+            url là địa chỉ của bộ dữ liệu  . The default is "..//data//train_test_data//IMDB_Dataset.csv".
+        url_stop : Địa chỉ stop word
+            url stop là địa chỉ của file stop word . The default is '..//data//train_test_data//stop_words.txt'.
+
+        Returns 
+        -------
+        None.
+
+        """
         self.dataset=pd.read_csv(url)
         self.stop_words = pd.read_csv(url_stop, sep='\n', header=None)[0].tolist()
         self.X=[]
@@ -46,6 +64,14 @@ class DuLieu():
         
         
     def clean_data(self):
+        """
+          Method Init để khởi tạo bộ dữ liệu dạng thông qua địa chỉ 
+          
+        Returns
+        -------
+        None.
+
+        """
         corpus = []
         for review in self.dataset.values[:, 0]:
             review = clean_text(review,r'''!()-[]{};:'"\,<>./?@#$%^&*_~''',self.stop_words)
@@ -53,16 +79,44 @@ class DuLieu():
             self.X=corpus
 
     def One_hot_Encoder(self):
+        """
+        Mã hóa label từ text sang number 
+
+        Returns
+        -------
+        None.
+
+        """
         label = LabelEncoder()
         self.Y = label.fit_transform(self.dataset.iloc[:,1])
+        
     
     def Split_Train_Test(self):
+        """
+        Chia tập train và test lại 
+
+        Returns
+        -------
+        TYPE
+            Giá trị train và test.
+
+        """
         return train_test_split(self.X, self.Y, test_size=0.20, random_state=40)
         
     def DATA_PROPROCESSOR_SPLIT(self):
+        """
+        Tiền xử lý tất cả dữ liệu 
+
+        Returns
+        -------
+        TYPE
+            DESCRIPTION.
+
+        """
         self.clean_data()
         self.One_hot_Encoder()
         return self.Split_Train_Test()
+
     
 
                    
