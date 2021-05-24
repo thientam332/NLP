@@ -9,8 +9,16 @@ class Visualize():
         self.dataset=dataset
         self.X=X
         self.model=model
-        
+        """
+        Dùng để trực quan hóa dữ liệu
+        Input: method init để khởi tạo bộ dữ liệu dạng csv
+        Output: Đồ thị trực quan hóa dataset, Accuracy và loss
+        """
     def VisualizeData(self):
+        """
+        Trực quan hóa dataset
+        Kiểm tra tần suất xuất hiện của 1 từ, từ đó xuất hiện càng nhiều thì kích cỡ chữ càng lớn
+        """
         sns.countplot(x='sentiment', data=self.dataset)
         plt.show()
         get_ipython().run_line_magic('matplotlib', 'inline')
@@ -20,8 +28,11 @@ class Visualize():
                                        width=2000,height=1000,mode="RGB").generate(str(cloud))
         plt.axis("off")
         plt.imshow(word_cloud)
-# Kiểm tra tần suất xuất hiện của 1 từ, từ đó xuất hiện càng nhiều thì kích cỡ chữ càng lớn
     def VisualizePredictModel(self):
+        """
+        Trực quan hóa Accuracy sau khi train model
+        Kiểm tra độ chính xác của model
+        """
         plt.plot(self.model.history['acc'])
         plt.plot(self.model.history['val_acc'])
         
@@ -32,6 +43,10 @@ class Visualize():
         plt.show()
         
     def VisualizePredictModel2(self):
+        """
+        Trực quan hóa Loss sau khi train model
+        Kiểm tra độ mất mát của model
+        """
         plt.plot(self.model.history['loss'])
         plt.plot(self.model.history['val_loss'])
         
