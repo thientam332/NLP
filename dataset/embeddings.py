@@ -7,14 +7,14 @@ class Embeddings():
 
     def __init__(self, path, vector_dimension):
         """
-        Chuyển đầu vào thành một mảng, và tạo ma trận embedding
         
+
         Parameters
         ----------
-        path : string 
-            địa chỉ của lớp embedding .
-        vector_dimension : int 
-            số chiều của lớp embedding .
+        path : link
+            Đường dẫn tới nơi lưu trữ file word embedding trên local.
+        vector_dimension : integer
+            Số chiều của vecto.
 
         Returns
         -------
@@ -25,33 +25,32 @@ class Embeddings():
         self.vector_dimension = vector_dimension
     
     @staticmethod
+    # Chuyển đầu vào thành một mảng
     def get_coefs(word, *arr): 
         """
-        Chuyển đầu vào thành một mảng
 
         Parameters
         ----------
-        word : strings 
-            kiểu dữ liệu của word .
-        *arr : list 
-         nơi lưu trữ array .
+        word : string
+        *arr : string
+            Tham số thể hiện độ ánh xạ ngữ nghĩa.
 
-        Returns 
+        Returns
         -------
-        TYPE string và kiểu dữ liệu np.array 
-            Chuyển đầu vào thành một mảng.
+        word :từ
+        numpy
 
         """
         return word, np.asarray(arr, dtype='float32')
     # Sử dụng dụng file word embedding có sẵn tạo thành từ điển
     def get_embedding_index(self):
         """
-        Sử dụng dụng file word embedding có sẵn tạo thành từ điển
+        
 
         Returns
         -------
-        embeddings_index : dict ( ) 
-            Từ  của embedding .
+        embeddings_index : dict
+            Tạo thành từ điển word - tham số ánh xạ.
 
         """
         embeddings_index = dict(self.get_coefs(*o.split(" ")) for o in open(self.path, errors='ignore'))
@@ -59,20 +58,19 @@ class Embeddings():
     # Tạo ma trận
     def create_embedding_matrix(self, tokenizer, max_features):
         """
-        Tạo ma trận
+        
 
         Parameters
         ----------
-        tokenizer : từ điển đã lưu 
-            DESCRIPTION.
-        max_features : int số chiều cần lưu 
-            DESCRIPTION.
+        tokenizer : class
+            class tách từ.
+        max_features : integer
+            số lượng word đầu vào.
 
         Returns
         -------
-        embedding_matrix : matrix numpy 
-            Ma trận biểu hiện mối liên quan .
-
+        embedding_matrix : numpy
+            Ma trận embedding.
         """
         model_embed = self.get_embedding_index()
 
