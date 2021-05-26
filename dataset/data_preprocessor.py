@@ -38,11 +38,10 @@ def clean_text(string: str, punctuations=r'''!()-[]{};:'"\,<>./?@#$%^&*_~''',sto
     return string
 
 class DuLieu():
-    def __doc__(self):
-        return """
+    """
     Tiền xử lý dữ liệu , chia file train và test 
     """
-    def __init__(self,url="..//data//train_test_data//IMDB_Dataset.csv",url_stop='..//data//train_test_data//stop_words.txt'):
+    def __init__(self,url=None,url_stop=None):
         """
     
         Parameters

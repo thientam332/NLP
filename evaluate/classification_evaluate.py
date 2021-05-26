@@ -41,3 +41,8 @@ class Test():
         self.X = TextToTensor_instance.string_to_tensor(self.X)
         score = self.model.evaluate(self.X, self.Y,verbose=0)
         return score
+    def predict_cau(self):
+        TextToTensor_instance = generator.TextToTensor(tokenizer=self.tokenizer,max_len=20)
+        self.X = TextToTensor_instance.string_to_tensor(self.X)
+        return self.model.predict( self.X)
+        

@@ -1,24 +1,16 @@
-import dataset.load_w2v_model as w2v
+#Package
+from config import *
+from dataset import data_preprocessor as Data,embeddings as embed, generating_input as gene ,load_w2v_model as w2v 
+
+from models import layers,rnn,sentence_model as sen,token_model as token 
+from visual import visual as vs
+from models.save_model import save_and_load  as sv 
+from evaluate import classification_evaluate as  ev
+#Module
+import pandas as pd
 import numpy as np
-import dataset.data_preprocessor as Bo_Xu_Ly
-import dataset.embeddings as embeddings
-import dataset.generating_input as generator
-import models.sentence_model as embed
-import models.layers as layers
-import models.rnn as rnn
-import models.token_model as token
-import models.sentence_model as embed
-import models.layers as layers
-import models.rnn as rnn
-import models.token_model as token
-import evaluate.classification_evaluate as test
-import visual.visual as visual
-import models.save_model.save_and_load as save_load
-temp3=None 
-model=None
-ans=True
+
 url=None
-X_Train, X_Test, Y_Train, Y_Test =None,None,None,None
 while ans:
     print (""""
     1. Input path_Data
@@ -33,29 +25,36 @@ while ans:
     """)
     ans=input("What would you like to do?" )
     if ans=="1":
-      url=input("Nhap dia chi data: ")        
+        while url!=Path_data:
+            url=input("Nhap dia chi data: ")
+            if url==Path_data:
+                print("Bạn đã nhập địa chỉ file csv")
+            else:
+                print("Bạn đã nhập sai địa chỉ")
     elif ans=="2":
-      temp=w2v.Load_w2v_model()
-      temp.load_w2v()
+        temp=w2v.Load_w2v_model()
     elif ans=="3":
-      if url is not None:
-        A=Bo_Xu_Ly.DuLieu('data/train_test_data/IMDB_Dataset.csv','data/stop_words.txt')
-        X_Train, X_Test, Y_Train, Y_Test = A.DATA_PROPROCESSOR_SPLIT()
-
-    elif ans=="4":
-      tokenizer = generator.Tokenizer()
+        if url!=None:
+            A=Data.DuLieu(url,Path_stop_words)
+            X_Train, X_Test, Y_Train, Y_Test = A.DATA_PROPROCESSOR_SPLIT()
+        else:
+            print("Data chạy theo mặc định")
+            A=Data.DuLieu(Path_data,Path_stop_words)
+            X_Train, X_Test, Y_Train, Y_Test = A.DATA_PROPROCESSOR_SPLIT()
+    elif ans=="4":        
+      tokenizer = gene.Tokenizer()
       tokenizer.fit_on_texts(X_Train)
 
-      embedding = embeddings.Embeddings("data/stop_words.txt", 300)
+      embedding = embed.Embeddings(Path_glove, 300)
       embedding_matrix = embedding.create_embedding_matrix(tokenizer, len(tokenizer.word_counts))
 
       max_len = np.max([len(text.split()) for text in X_Train])
-      TextToTensor_instance = generator.TextToTensor(tokenizer=tokenizer, max_len=max_len)
+      TextToTensor_instance = gene.TextToTensor(tokenizer=tokenizer, max_len=max_len)
       X_Train = TextToTensor_instance.string_to_tensor(X_Train) 
     elif ans=="5":
       
       model = layers.Sequential()
-      embedding_layer = embed.Embedding(embedding_matrix.shape[0], 300, weights=[embedding_matrix], input_length=max_len , trainable=False)
+      embedding_layer = sen.Embedding(embedding_matrix.shape[0], 300, weights=[embedding_matrix], input_length=max_len , trainable=False)
       model.add(embedding_layer)
 
       model.add(rnn.LSTM(128))
@@ -64,22 +63,18 @@ while ans:
     elif ans=="6":
       review_movie_model=model.fit(X_Train, Y_Train, batch_size=256, epochs=10,validation_split=0.2)
     elif ans=="7":
-      review_movie_model_pre=test.Test(model,X_Test,Y_Test,tokenizer)
+      review_movie_model_pre=ev.Test(model,X_Test,Y_Test,tokenizer)
       print(review_movie_model_pre.predict_testdata())
-      visualize=visual.Visualize(A.dataset,A.X,review_movie_model)
+      visualize=vs.Visualize(A.dataset,A.X,review_movie_model)
       visualize.VisualizeData()
       visualize.VisualizePredictModel()
       visualize.VisualizePredictModel2()
     elif ans=="8":
-      temp3=save_load.Save_Load(model)
-      temp3.save_model("models/save_model")
+      temp3=sv.Save_Load(model)
+      temp3.save_model(Path_model)
     elif ans=="9":
-      vietem=temp3.load_model("models/save_model")
+      vietem=temp3.load_model(Path_model)
       vietem.summary()
-    else:
-      ans=False
-
-
 
 
 
