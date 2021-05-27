@@ -13,7 +13,7 @@ class ModelLSTM():
         self.model=model
     def CreateNode(self):
         self.model = layers.Sequential()
-        embedding_layer = sentence_model.Embedding(self.Pre_train.get_embedding().shape[0], 300, weights=[embedding_matrix], input_length=max_len , trainable=False)
+        embedding_layer = sentence_model.Embedding(self.Pre_train.get_embedding().shape[0], 300, weights=[self.Pre_train.get_embedding()], input_length=self.Pre_train.get_max_len() , trainable=False)
         self.model.add(embedding_layer)
         self.model.add(rnn.LSTM(128))
         self.model.add(token_model.Dense(1, activation='sigmoid'))
