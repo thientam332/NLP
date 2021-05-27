@@ -23,6 +23,13 @@ while ans:
     8. Lưu model 
     9. Load model 
     """)
+    print("""
+          1. Tiền xử lý dữ liệu và chuẩn bị đầu vào cho model
+          2. Xây dựng lớp mạng LSTM và train mô hình
+          3. Trực quan hóa
+          4. Save Model
+          5. Load Model
+          """)
     ans=input("What would you like to do?" )
     if ans=="1":
         while url!=Path_data:

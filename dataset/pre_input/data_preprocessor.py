@@ -56,6 +56,7 @@ class DuLieu():
         None.
 
         """
+        self.url=url
         self.dataset=pd.read_csv(url)
         self.stop_words = pd.read_csv(url_stop, sep='\n', header=None)[0].tolist()
         self.X=[]
