@@ -58,17 +58,17 @@ while ans:
       max_len = np.max([len(text.split()) for text in X_Train])
       TextToTensor_instance = gene.TextToTensor(tokenizer=tokenizer, max_len=max_len)
       X_Train = TextToTensor_instance.string_to_tensor(X_Train) 
-    elif ans=="5":
       
-      model = layers.Sequential()
-      embedding_layer = sen.Embedding(embedding_matrix.shape[0], 300, weights=[embedding_matrix], input_length=max_len , trainable=False)
-      model.add(embedding_layer)
-
-      model.add(rnn.LSTM(128))
-      model.add(token.Dense(1, activation='sigmoid'))
-      model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['acc'])
+    elif ans=="5":
+      from models import models
+      model=models.ModelLSTM(data)
+      review_movie_model=model.CreateNode()
     elif ans=="6":
-      review_movie_model=model.fit(X_Train, Y_Train, batch_size=256, epochs=10,validation_split=0.2)
+      from evaluate_visual import evaluate_visual
+      val_visual=evaluate_visual.Evaluate_visual(model.get_model,data.get_tokenizer(),data.get_X_Test(),data.get_Y_Test())
+      val_visual.Evaluate()
+      val_visual.Visuallize()
+      
     elif ans=="7":
       review_movie_model_pre=ev.Test(model,X_Test,Y_Test,tokenizer)
       print(review_movie_model_pre.predict_testdata())
