@@ -5,7 +5,7 @@ Created on Wed May 26 10:15:42 2021
 @author: vieta
 """
 
-Path_data='data/IMDB_Dataset.csv'
+Path_data='data/'
 Path_glove='data/glove.42B.300d.txt'
 Path_stop_words='data/stop_words.txt'
 
