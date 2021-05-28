@@ -14,5 +14,8 @@ class Evaluate_visual():
     def Visuallize(self):
         visualize=visual.Visualize(self.dataset,self.X,self.History)
         visualize.VisualizeData()
-        visualize.VisualizePredictModel()
         visualize.VisualizePredictModel2()
+    def Visuallize1(self):
+        visualize1=visual.Visualize(self.dataset,self.X,self.History)
+        visualize1.VisualizePredictModel()  
+    
