@@ -1,5 +1,5 @@
-from visual import visual
-from evaluate import evaluate
+from evaluate_visual.visual import visual
+from evaluate_visual.evaluate import classification_evaluate as evaluate
 class Evaluate_visual():
     def __init__(self,model=None,tokenizer=None,dataset=None,X=None,Y=None):
         self.model=model

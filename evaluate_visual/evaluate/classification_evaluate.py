@@ -1,4 +1,4 @@
-import dataset.generating_input as generator
+from pre_train.pre_input import generating_input as generator
 class Test():
     """
     Danh gia model 

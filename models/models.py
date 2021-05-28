@@ -6,7 +6,7 @@ Created on Thu May 27 22:00:14 2021
 """
 
 
-from lstm import layers, rnn, sentence_model, token_model
+from models.lstm import layers, rnn, sentence_model, token_model
 class ModelLSTM():
     def __init__(self,Pre_train=None):
         self.Pre_train=Pre_train
