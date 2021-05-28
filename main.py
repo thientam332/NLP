@@ -33,10 +33,10 @@ while ans:
         MODEL=models.ModelLSTM(dulieu)
         MODEL.CreateNode()
     elif ans=="3":
-        VISUAL=ev.Evaluate_visual(MODEL.get_model(),dulieu.get_tokenizer(),MODEL.get_model(),dulieu.get_X_Test(),dulieu.get_Y_Test())
+        VISUAL=ev.Evaluate_visual(MODEL.get_model(),dulieu.get_tokenizer(),dulieu.Get_Dataset(),dulieu.get_X_Test(),dulieu.get_Y_Test())
         print("Evaluate: ")
-        print(ev.Evaluate())
-        ev.Visuallize()
+        print(VISUAL.Evaluate())
+        VISUAL.Visuallize()
     elif ans=="4":
         SAVE=sl.Save_Load(MODEL.get_model())
         path=input("Bấm 0 để chọn địa chỉ mặc định hoặc Nhap dia chi save: ")
@@ -48,7 +48,8 @@ while ans:
         path=input("Bấm 0 để chọn địa chỉ mặc định hoặc Nhap dia chi save: ")
         if path=="0":
             path=Path_model
-        LOAD.load_model(path) 
+        LOAD.load_model(path)
+
     else:
         ans=False
         
