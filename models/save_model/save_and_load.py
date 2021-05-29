@@ -43,6 +43,16 @@ class Save_Load():
     def save_model(self,url):
         """
         Dùng để save model 
+                Parameters
+        ----------
+        url : string 
+            địa chỉ lưu .
+
+        Returns
+        -------
+        TYPE
+            dữ liệu model đã lưu.
+
         """
         print(self.model.summary())
         self.model.save(url)

@@ -31,12 +31,12 @@ while ans:
         dulieu.TienXuLy(Path_data,Path_stop_words,Path_glove)
     elif ans=="2":
         MODEL=models.ModelLSTM(dulieu)
-        MODEL.CreateNode()
+        HISTORY= MODEL.CreateNode()
     elif ans=="3":
-        VISUAL=ev.Evaluate_visual(MODEL.get_model(),dulieu.get_tokenizer(),dulieu.Get_Dataset(),dulieu.get_X_Test(),dulieu.get_Y_Test())
+        VISUAL=ev.Evaluate_visual(MODEL.get_model(),dulieu.get_tokenizer(),dulieu.Get_Dataset(),dulieu.get_X_Test(),dulieu.get_Y_Test(),HISTORY)
         print("Evaluate: ")
         print(VISUAL.Evaluate())
-        VISUAL.Visuallize()
+        VISUAL.Visuallize1()
     elif ans=="4":
         SAVE=sl.Save_Load(MODEL.get_model())
         path=input("Bấm 0 để chọn địa chỉ mặc định hoặc Nhap dia chi save: ")
@@ -48,8 +48,7 @@ while ans:
         path=input("Bấm 0 để chọn địa chỉ mặc định hoặc Nhap dia chi save: ")
         if path=="0":
             path=Path_model
-        LOAD.load_model(path)
-
+        temp=LOAD.load_model(path) 
     else:
         ans=False
         

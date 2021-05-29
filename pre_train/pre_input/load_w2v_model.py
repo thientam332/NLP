@@ -2,8 +2,9 @@ from urllib.request import urlopen
 from zipfile import ZipFile
 
 class Load_w2v_model():
-    def __doc__(self):
-        return """
+    """
+    Dùng chứa kiểu dữ liệu matrix glove có sẵn
+    Sử dụng thư viện tại địa chỉ 'http://nlp.stanford.edu/data/glove.42B.300d.zip'
     Input: Url word embedding model
     Output: file word embedding có sẵn
     Tính năng: download file word embedding ở định dạng zip và giải nén.
@@ -24,6 +25,8 @@ class Load_w2v_model():
     
     def load_w2v(self):
         """
+        Truy cập 'http://nlp.stanford.edu/data/glove.42B.300d.zip' thông qua urlopen của thư viện urlib.request
+        Sử dụng method write với file được tạo trong thư mục data 
         Input: self.url
 
         Returns
@@ -33,11 +36,11 @@ class Load_w2v_model():
         """
         zipresp = urlopen(self.url)
         if (zipresp is not None):
-            tempzip = open("C:/Users/Admin/Documents/GitHub/NLP/data/glove.zip", "wb")
+            tempzip = open("data/glove.zip", "wb")
             tempzip.write(zipresp.read())
             tempzip.close()
-            zf = ZipFile("C:/Users/Admin/Documents/GitHub/NLP/data/glove.zip")
-            zf.extractall(path = 'C:/Users/Admin/Documents/GitHub/NLP/data')
+            zf = ZipFile("data/glove.zip")
+            zf.extractall(path = 'data')
             zf.close()
         else:
             print("Url không tồn tại")

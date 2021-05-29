@@ -60,7 +60,7 @@ def text_to_word_sequence(text,
 class Tokenizer:
     def __init__(self, num_words=None,filters='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n',lower=True,split=' ', char_level=False,oov_token=None,analyzer=None):
         """
-        
+        1 nhánh con trong tập xử lý của NLP, là một thuật toán có nhiệm vụ tách từ, cụm từ trong văn bản.
 
         Parameters
         ----------
